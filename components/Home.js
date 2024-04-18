@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import Card from './Cards';
+import Card from './Card';
 import styles from '../styles/Home.module.css';
 
 function Home() {
