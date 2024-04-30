@@ -40,16 +40,18 @@
 
 .card:hover .cardFront,
 card:hover .cardBack {
-  border-color: #86f3df;
+  /* border: 5px solid #86f3df; */
   transform: scale(1.15);
+  border: 4px solid #f90505;
 }
 
 .cardBack {
   transform: rotateY(180deg);
-  background-color: rgb(3, 43, 58);
+  background-color: #e77c0a;
+  border: 2px solid rgb(76, 82, 87);
 }
 
 .cardFront {
-  background-color: rgb(76, 82, 87);
+  background-color: #0f68a0;
   border: 2px solid rgb(76, 82, 87);
 }
