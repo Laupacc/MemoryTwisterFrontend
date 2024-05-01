@@ -55,3 +55,14 @@ card:hover .cardBack {
   background-color: #0f68a0;
   border: 2px solid rgb(76, 82, 87);
 }
+.shuffling {
+  transform: rotateY(180deg);
+}
+
+@media screen and (max-width: 768px) {
+  .card {
+    height: 60px;
+    width: 80px;
+    margin: 0.5rem;
+  }
+}

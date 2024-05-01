@@ -6,9 +6,7 @@ import Swal from 'sweetalert2'
 let numberOfMoves = 0;
 
 function Home() {
-    const [selected, setSelected] = useState([]);
-    const [matched, setMatched] = useState([]);
-    const [deck, setDeck] = useState([
+    const fullDeck = [
         { id: 1, name: 'dice', image: 'dice.png' },
         { id: 2, name: 'dice', image: 'dice.png' },
         { id: 3, name: 'joystick', image: 'joystick.png' },
@@ -25,24 +23,54 @@ function Home() {
         { id: 14, name: 'bowling', image: 'bowling.png' },
         { id: 15, name: 'snooker', image: 'snooker.png' },
         { id: 16, name: 'snooker', image: 'snooker.png' },
-    ]);
+        { id: 17, name: 'four cards', image: 'four_cards.png' },
+        { id: 18, name: 'four cards', image: 'four_cards.png' },
+        { id: 19, name: 'boardgame', image: 'boardgame2.png' },
+        { id: 20, name: 'boardgame', image: 'boardgame2.png' },
+        { id: 21, name: 'dominos', image: 'dominos.png' },
+        { id: 22, name: 'dominos', image: 'dominos.png' },
+        { id: 23, name: 'tokens', image: 'tokens.png' },
+        { id: 24, name: 'tokens', image: 'tokens.png' },
+    ];
+    const [selected, setSelected] = useState([]);
+    const [matched, setMatched] = useState([]);
+    const [deck, setDeck] = useState([...fullDeck]);
     const [timer, setTimer] = useState(0);
     const [isGameStarted, setIsGameStarted] = useState(false);
+    const [isShuffling, setIsShuffling] = useState(false);
     const [intervalId, setIntervalId] = useState(null);
 
+
+    // const shuffleDeck = () => {
+    //     const shuffledDeck = [...deck];
+    //     for (let i = shuffledDeck.length - 1; i > 0; i--) {
+    //         const j = Math.floor(Math.random() * (i + 1));
+    //         [shuffledDeck[i], shuffledDeck[j]] = [shuffledDeck[j], shuffledDeck[i]];
+    //     }
+    //     setDeck(shuffledDeck);
+    // };
+
     const shuffleDeck = () => {
+        setIsShuffling(true); // Trigger animation
         const shuffledDeck = [...deck];
         for (let i = shuffledDeck.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [shuffledDeck[i], shuffledDeck[j]] = [shuffledDeck[j], shuffledDeck[i]];
         }
-        setDeck(shuffledDeck);
+        setTimeout(() => {
+            setIsShuffling(false); // Stop animation after a delay
+            setDeck(shuffledDeck);
+        }, 1000); // Adjust the duration of the animation
     };
 
     useEffect(() => {
         shuffleDeck();
-        startTimer();
-        setIsGameStarted(true);
+        setIsGameStarted(false);
+    }, []);
+
+    useEffect(() => {
+        shuffleDeck();
+        setIsGameStarted(false);
     }, []);
 
     useEffect(() => {
@@ -57,16 +85,24 @@ function Home() {
                 imageHeight: 200,
                 imageAlt: "Clapping hands",
             });
+            // reset();
+            // startTimer(0);
+            // shuffleDeck();
         }
     }, [matched]);
 
-    const startTimer = () => {
-        const id = setInterval(() => {
-            setTimer((prevTimer) => prevTimer + 1);
-        }, 1000);
-        setIntervalId(id);
+    const startTimer = (initialValue) => {
+        setTimer(initialValue);
+        if (initialValue !== 0) {
+            const id = setInterval(() => {
+                setTimer((prevTimer) => prevTimer + 1);
+            }, 1000);
+            setIntervalId(id);
+        }
+        else {
+            clearInterval(intervalId);
+        }
     };
-
 
     const formatTime = (totalSeconds) => {
         const minutes = Math.floor(totalSeconds / 60);
@@ -97,6 +133,42 @@ function Home() {
         }
     };
 
+    const reset = () => {
+        setSelected([]);
+        setMatched([]);
+        numberOfMoves = 0;
+    };
+
+    const easyMode = () => {
+        reset();
+        setDeck(fullDeck.slice(0, 10));
+        startTimer(0);
+        setIsGameStarted(false);
+    };
+
+    const mediumMode = () => {
+        reset();
+        setDeck(fullDeck.slice(0, 20));
+        startTimer(0);
+        setIsGameStarted(false);
+    };
+
+    const hardMode = () => {
+        reset();
+        setDeck(fullDeck.slice(0, 24));
+        startTimer(0);
+        setIsGameStarted(false);
+    };
+
+    const startNewGame = () => {
+        shuffleDeck();
+        reset();
+        // setDeck([...fullDeck]);
+        setTimer(0);
+        startTimer(1);
+        setIsGameStarted(true);
+    };
+
     const cardsToDisplay = deck.map((card) => {
         return (
             <Card
@@ -106,9 +178,11 @@ function Home() {
                 image={card.image}
                 selectCard={selectCard}
                 selected={selected.includes(card.id) || matched.includes(card.id)}
+                isShuffling={isShuffling}
             />
         );
     });
+
 
     return (
         <div className={styles.home}>
@@ -122,14 +196,34 @@ function Home() {
                         <div className={styles.headerTitle}>
                             Memory Twister
                         </div>
-                        <div className={styles.restart} onClick={() => window.location.reload()}>
-                            <button class={styles.button82pushable}>
-                                <span class={styles.button82shadow}></span>
-                                <span class={styles.button82edge}></span>
-                                <span class={styles.button82front}>
-                                    New Game
-                                </span>
-                            </button>
+                        <div className={styles.levelButtons}>
+                            <div className={styles.levelButton}>
+                                <button class={styles.button82pushable} onClick={easyMode}>
+                                    <span class={styles.button82shadow}></span>
+                                    <span class={styles.button82edge}></span>
+                                    <span class={styles.button82front}>
+                                        Easy
+                                    </span>
+                                </button>
+                            </div>
+                            <div className={styles.levelButton}>
+                                <button class={styles.button82pushable} onClick={mediumMode}>
+                                    <span class={styles.button82shadow}></span>
+                                    <span class={styles.button82edge}></span>
+                                    <span class={styles.button82front}>
+                                        Medium
+                                    </span>
+                                </button>
+                            </div>
+                            <div className={styles.levelButton}>
+                                <button class={styles.button82pushable} onClick={hardMode}>
+                                    <span class={styles.button82shadow}></span>
+                                    <span class={styles.button82edge}></span>
+                                    <span class={styles.button82front}>
+                                        Hard
+                                    </span>
+                                </button>
+                            </div>
                         </div>
                         <div className={styles.movesandtimer}>
                             <div className={styles.moves}>
@@ -140,10 +234,18 @@ function Home() {
                             </div>
                         </div>
                     </div>
+                    <div className={styles.restart}>
+                        <button class={styles.button82pushable} onClick={startNewGame}>
+                            <span class={styles.button82shadow}></span>
+                            <span class={styles.button82edge}></span>
+                            <span class={styles.button82front}>
+                                Start New Game
+                            </span>
+                        </button>
+                    </div>
                     <div className={styles.headerDivider}>
                     </div>
                 </div>
-
 
                 <div className={styles.main}>
                     <div className={styles.grid}>
