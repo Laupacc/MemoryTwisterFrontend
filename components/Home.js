@@ -34,12 +34,11 @@ function Home() {
     ];
     const [selected, setSelected] = useState([]);
     const [matched, setMatched] = useState([]);
-    const [deck, setDeck] = useState([...fullDeck]);
+    const [deck, setDeck] = useState([...fullDeck.slice(0, 20)]);
     const [timer, setTimer] = useState(0);
     const [isGameStarted, setIsGameStarted] = useState(false);
     const [isShuffling, setIsShuffling] = useState(false);
     const [intervalId, setIntervalId] = useState(null);
-
 
     // const shuffleDeck = () => {
     //     const shuffledDeck = [...deck];
@@ -64,12 +63,7 @@ function Home() {
     };
 
     useEffect(() => {
-        shuffleDeck();
-        setIsGameStarted(false);
-    }, []);
-
-    useEffect(() => {
-        shuffleDeck();
+        // shuffleDeck();
         setIsGameStarted(false);
     }, []);
 
@@ -84,10 +78,9 @@ function Home() {
                 imageWidth: 400,
                 imageHeight: 200,
                 imageAlt: "Clapping hands",
+                confirmButtonColor: '#e55c21',
+                confirmButtonText: 'Ok!'
             });
-            // reset();
-            // startTimer(0);
-            // shuffleDeck();
         }
     }, [matched]);
 
@@ -155,7 +148,7 @@ function Home() {
 
     const hardMode = () => {
         reset();
-        setDeck(fullDeck.slice(0, 24));
+        setDeck(fullDeck);
         startTimer(0);
         setIsGameStarted(false);
     };
@@ -183,7 +176,6 @@ function Home() {
         );
     });
 
-
     return (
         <div className={styles.home}>
             <div className={styles.background}>
@@ -196,7 +188,7 @@ function Home() {
                         <div className={styles.headerTitle}>
                             Memory Twister
                         </div>
-                        <div className={styles.levelButtons}>
+                        {/* <div className={styles.levelButtons}>
                             <div className={styles.levelButton}>
                                 <button class={styles.button82pushable} onClick={easyMode}>
                                     <span class={styles.button82shadow}></span>
@@ -224,7 +216,35 @@ function Home() {
                                     </span>
                                 </button>
                             </div>
+                        </div> */}
+                        <div className={styles.levelButtons}>
+                            <select className={styles.button82front} onChange={(e) => {
+                                if (e.target.value === "easy") {
+                                    easyMode();
+                                }
+                                else if (e.target.value === "medium") {
+                                    mediumMode();
+                                }
+                                else if (e.target.value === "hard") {
+                                    hardMode();
+                                }
+                            }}>
+                                <option value="select">Select Level</option>
+                                <option value="easy">Easy</option>
+                                <option value="medium">Medium</option>
+                                <option value="hard">Hard</option>
+                            </select>
                         </div>
+                        <div className={styles.restart}>
+                            <button class={styles.button82pushable} onClick={startNewGame}>
+                                <span class={styles.button82shadow}></span>
+                                <span class={styles.button82edge}></span>
+                                <span class={styles.button82front}>
+                                    Start New Game
+                                </span>
+                            </button>
+                        </div>
+
                         <div className={styles.movesandtimer}>
                             <div className={styles.moves}>
                                 Moves: {numberOfMoves}
@@ -234,21 +254,12 @@ function Home() {
                             </div>
                         </div>
                     </div>
-                    <div className={styles.restart}>
-                        <button class={styles.button82pushable} onClick={startNewGame}>
-                            <span class={styles.button82shadow}></span>
-                            <span class={styles.button82edge}></span>
-                            <span class={styles.button82front}>
-                                Start New Game
-                            </span>
-                        </button>
-                    </div>
                     <div className={styles.headerDivider}>
                     </div>
                 </div>
 
                 <div className={styles.main}>
-                    <div className={styles.grid}>
+                    <div className={styles.grid} >
                         {cardsToDisplay}
                     </div>
                 </div>

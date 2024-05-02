@@ -4,14 +4,15 @@ import Pixel from '../public/images/Pixelateimage.png';
 import Thinker from '../public/images/theThinker.png';
 
 function Card(props) {
+
     return (
         <div onClick={() => props.selectCard(props.id)} className={`${styles.card} ${props.selected && styles.active} ${props.isShuffling && styles.shuffling}`}>
             <div className={styles.flipper}>
                 <div className={styles.cardFront}>
-                    <Image src={Pixel} className={styles.emoji} width={50} height={50} />
+                    <Image src={Pixel} className={styles.emoji} />
                 </div>
-                <div className={styles.cardBack}>
-                    <Image src={`/images/${props.image}`} alt={props.name} width={70} height={70} />
+                <div className={styles.cardBack} >
+                    <img className={styles.image} src={`/images/${props.image}`} alt={props.name} />
                 </div>
             </div>
         </div>

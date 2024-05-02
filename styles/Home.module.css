@@ -2,13 +2,17 @@
   min-height: 100vh;
   width: 100vw;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   background-color: #f6e7d8;
   border: solid 2.5rem #f4b324;
   z-index: -1;
 }
-.container{
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   z-index: 1;
 }
 .background {
@@ -20,24 +24,27 @@
 
 .chessBackground {
   background-image: url("/images/Chess.png");
-  background-size: cover;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
   position: absolute;
   width: 50vw;
   height: 50vh;
-  top: 10rem;
-  right: -6rem;
+  top: 14rem;
+  right: -12rem;
 }
 
 .cardsBackground {
   background-image: url("/images/Cards.png");
-  background-size: cover;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
   position: absolute;
   width: 50%;
   height: 50%;
   bottom: -5rem;
   left: -10rem;
 }
-
 .header {
   display: flex;
   flex-direction: column;
@@ -49,6 +56,7 @@
   left: 0;
   width: 100%;
   z-index: 1;
+  /* position: fixed; */
 }
 
 .headerInside {
@@ -73,13 +81,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
 }
 .grid {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: 90%;
 }
 
 .movesandtimer {
@@ -97,13 +106,21 @@
   border-radius: 10%;
 }
 
-.levelButtons {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 0.5rem;
-}
-.levelButton {
+/* .levelButtons {
+  padding: 0.3rem;
+  margin: 0.5rem;
+  font-size: 1.5rem;
+  border: 0.2rem solid #07a5c3;
+  border-radius: 4px;
+  background-color: #f14902;
+  color: white;
+  cursor: pointer;
+  outline: none;
+  font-family: Silkscreen;
+  border-radius: 5%; 
+} */
+
+/* .levelButton {
   padding: 0.3rem;
   margin: 0.5rem;
   border: 0.2rem solid #07a5c3;
@@ -112,12 +129,30 @@
   color: #07a5c3;
   font-size: 1rem;
   cursor: pointer;
+} */
+
+.levelButtons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.levelButtons .button82front {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Silkscreen;
+  padding: 0.6rem 0.8rem;
+  margin: 0.5rem 0.5rem 0 0.5rem;
+  font-size: 1.2rem;
+  outline: none;
+  box-shadow: 0 0 0 0.1rem grey;
+  cursor: pointer;
 }
 
-.levelButton .button82front {
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  background: #e55c21;
+.levelButtons:hover {
+  transform: scale(1.05);
+  filter: brightness(115%);
+  -webkit-filter: brightness(115%);
 }
 
 .button82pushable {
@@ -186,7 +221,7 @@
   transition: transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5);
 }
 
-.button82pushable:active .button82front {
+.button82pushable:focus .button82front {
   transform: translateY(-2px);
   transition: transform 34ms;
 }
@@ -196,7 +231,7 @@
   transition: transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5);
 }
 
-.button82pushable:active .button82shadow {
+.button82pushable:focus .button82shadow {
   transform: translateY(1px);
   transition: transform 34ms;
 }
@@ -216,13 +251,14 @@
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
+    margin-top: 0.5rem;
   }
   .header {
     margin-top: 0;
     padding: 0.5rem;
   }
   .headerTitle {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
   }
   .headerDivider {
     width: 75%;
@@ -232,42 +268,44 @@
     flex-direction: column;
   }
   .timer {
-    padding: 0.2rem;
+    padding: 0.3rem;
   }
   .moves {
-    padding: 0.2rem;
+    padding: 0.3rem;
+  }
+  .grid {
+    width: 90%;
   }
   .button82front {
     padding: 10px 20px;
     font-size: 0.8rem;
   }
   .button82pushable {
-    margin: 0.8rem;
+    margin-top: 0.2rem;
+    margin-bottom: 0.8rem;
   }
   .chessBackground {
-    width: 40vw;
-    height: 40vh;
-    top: 5rem;
-    right: -3rem;
+    width: 100%;
+    height: 100%;
+    top: -6rem;
+    right: -12rem;
   }
   .cardsBackground {
-    width: 40%;
-    height: 40%;
-    bottom: -3rem;
-    left: -5rem;
+    width: 100%;
+    height: 100%;
+    bottom: -18rem;
+    left: -8rem;
   }
   .levelButtons {
-    margin-top: 0.3rem;
-    margin-bottom: 0.3rem;
+    margin: 0.3rem;
   }
-  .levelButton {
+  /* .levelButton {
     padding: 0rem;
     margin: 0.3rem;
     border: none;
     background-color: transparent;
-
-  }
-  .levelButtons .button82front{
+  } */
+  .levelButtons .button82front {
     padding: 0.4rem;
     font-size: 0.8rem;
   }
