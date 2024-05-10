@@ -5,7 +5,7 @@ function App({ Component, pageProps }) {
     return (
         <>
             <Head>
-                <title>Memory Game</title>
+                <title>Memory Twister</title>
                 <link rel="icon" href="favicon.ico" />
                 <meta name="description" content="A fun memory game where you flip and match cards" />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />

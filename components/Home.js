@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import Card from './Card';
 import styles from '../styles/Home.module.css';
 import Swal from 'sweetalert2'
+import Head from 'next/head';
 
 let numberOfMoves = 0;
 
@@ -177,18 +178,22 @@ function Home() {
     });
 
     return (
-        <div className={styles.home}>
-            <div className={styles.background}>
-                <div className={styles.chessBackground}></div>
-                <div className={styles.cardsBackground}></div>
-            </div>
-            <div className={styles.container}>
-                <div className={styles.header}>
-                    <div className={styles.headerInside}>
-                        <div className={styles.headerTitle}>
-                            Memory Twister
-                        </div>
-                        {/* <div className={styles.levelButtons}>
+        <>
+            <Head>
+                <title>Memory Twister</title>
+            </Head>
+            <div className={styles.home}>
+                <div className={styles.background}>
+                    <div className={styles.chessBackground}></div>
+                    <div className={styles.cardsBackground}></div>
+                </div>
+                <div className={styles.container}>
+                    <div className={styles.header}>
+                        <div className={styles.headerInside}>
+                            <div className={styles.headerTitle}>
+                                Memory Twister
+                            </div>
+                            {/* <div className={styles.levelButtons}>
                             <div className={styles.levelButton}>
                                 <button class={styles.button82pushable} onClick={easyMode}>
                                     <span class={styles.button82shadow}></span>
@@ -217,54 +222,55 @@ function Home() {
                                 </button>
                             </div>
                         </div> */}
-                        <div className={styles.levelButtons}>
-                            <select className={styles.button82front} onChange={(e) => {
-                                if (e.target.value === "easy") {
-                                    easyMode();
-                                }
-                                else if (e.target.value === "medium") {
-                                    mediumMode();
-                                }
-                                else if (e.target.value === "hard") {
-                                    hardMode();
-                                }
-                            }}>
-                                <option value="select">Select Level</option>
-                                <option value="easy">Easy</option>
-                                <option value="medium">Medium</option>
-                                <option value="hard">Hard</option>
-                            </select>
-                        </div>
-                        <div className={styles.restart}>
-                            <button class={styles.button82pushable} onClick={startNewGame}>
-                                <span class={styles.button82shadow}></span>
-                                <span class={styles.button82edge}></span>
-                                <span class={styles.button82front}>
-                                    Start New Game
-                                </span>
-                            </button>
-                        </div>
+                            <div className={styles.levelButtons}>
+                                <select className={styles.button82front} onChange={(e) => {
+                                    if (e.target.value === "easy") {
+                                        easyMode();
+                                    }
+                                    else if (e.target.value === "medium") {
+                                        mediumMode();
+                                    }
+                                    else if (e.target.value === "hard") {
+                                        hardMode();
+                                    }
+                                }}>
+                                    <option value="select">Select Level</option>
+                                    <option value="easy">Easy</option>
+                                    <option value="medium">Medium</option>
+                                    <option value="hard">Hard</option>
+                                </select>
+                            </div>
+                            <div className={styles.restart}>
+                                <button class={styles.button82pushable} onClick={startNewGame}>
+                                    <span class={styles.button82shadow}></span>
+                                    <span class={styles.button82edge}></span>
+                                    <span class={styles.button82front}>
+                                        Start New Game
+                                    </span>
+                                </button>
+                            </div>
 
-                        <div className={styles.movesandtimer}>
-                            <div className={styles.moves}>
-                                Moves: {numberOfMoves}
+                            <div className={styles.movesandtimer}>
+                                <div className={styles.moves}>
+                                    Moves: {numberOfMoves}
+                                </div>
+                                <div className={styles.timer}>
+                                    Time: {formatTime(timer)}
+                                </div>
                             </div>
-                            <div className={styles.timer}>
-                                Time: {formatTime(timer)}
-                            </div>
+                        </div>
+                        <div className={styles.headerDivider}>
                         </div>
                     </div>
-                    <div className={styles.headerDivider}>
-                    </div>
-                </div>
 
-                <div className={styles.main}>
-                    <div className={styles.grid} >
-                        {cardsToDisplay}
+                    <div className={styles.main}>
+                        <div className={styles.grid} >
+                            {cardsToDisplay}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 }
 
